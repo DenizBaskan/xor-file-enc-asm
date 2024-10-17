@@ -91,7 +91,7 @@ _read_bytes: ; reads path from rdi into text, rax contains amount read
 
 _write_bytes: ; writes text to path in rdi with length in rsi
     push rsi
-open:
+.open:
     mov rax, 2 ; SYS_OPEN
     mov rsi, 0x41 ; O_WRONLY | O_CREAT | O_TRUNC
     mov rdx, 0644o
