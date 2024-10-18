@@ -13,7 +13,7 @@ section .text
 _start:
     pop r8
     cmp r8, 3
-    jne .invalid_args
+    jne .invalid_args_exit
 
     pop r8
     pop r8 ; path of file
@@ -37,11 +37,19 @@ _start:
     mov rax, 60 ; SYS_EXIT
     mov rdi, 0 ; EXIT_SUCCESS
     syscall
-.invalid_args:
+.invalid_args_exit:
     mov rdi, err_wrong_arg_amount
     mov rsi, err_wrong_arg_amount_len
 
-    jmp _err_exit
+    mov rdx, rsi
+    mov rsi, rdi
+    mov rax, 1 ; SYS_WRITE
+    mov rdi, 0 ; STDERR
+    syscall
+
+    mov rax, 60 ; SYS_EXIT
+    mov rdi, 1 ; general error exit code
+    syscall
 
 _xor_bytes: ; uses key in rdi, key len in rsi
     dec rsi
@@ -122,14 +130,3 @@ _strlen: ; gets string in rdi len and stores in rax
     jmp .begin
 .end:   
     ret
-
-_err_exit: ; takes pointer to string at rdi and len at rsi
-    mov rdx, rsi
-    mov rsi, rdi
-    mov rax, 1 ; SYS_WRITE
-    mov rdi, 0 ; STDERR
-    syscall
-
-    mov rax, 60 ; SYS_EXIT
-    mov rdi, 1 ; general error exit code
-    syscall
