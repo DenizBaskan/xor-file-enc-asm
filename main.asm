@@ -3,7 +3,7 @@
 global _start
 
 section .data
-    err_wrong_arg_amount: dw "Wrong amount of arguments, 'bin/main path key'"
+    err_wrong_arg_amount: dw "Wrong amount of arguments, 'bin/main path key'", 10
     err_wrong_arg_amount_len equ $-err_wrong_arg_amount
 
 section .bss
