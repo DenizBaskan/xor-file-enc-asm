@@ -38,11 +38,8 @@ _start:
     mov rdi, 0 ; EXIT_SUCCESS
     syscall
 .invalid_args_exit:
-    mov rdi, err_wrong_arg_amount
-    mov rsi, err_wrong_arg_amount_len
-
-    mov rdx, rsi
-    mov rsi, rdi
+    mov rsi, err_wrong_arg_amount
+    mov rdx, err_wrong_arg_amount_len
     mov rax, 1 ; SYS_WRITE
     mov rdi, 0 ; STDERR
     syscall
