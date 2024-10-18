@@ -34,7 +34,9 @@ _start:
     pop rsi
     call _write_bytes
 
-    jmp _exit
+    mov rax, 60 ; SYS_EXIT
+    mov rdi, 0 ; EXIT_SUCCESS
+    syscall
 .invalid_args:
     mov rdi, err_wrong_arg_amount
     mov rsi, err_wrong_arg_amount_len
@@ -128,9 +130,6 @@ _err_exit: ; takes pointer to string at rdi and len at rsi
     mov rdi, 0 ; STDERR
     syscall
 
-    jmp _exit
-
-_exit:
     mov rax, 60 ; SYS_EXIT
-    mov rdi, 0 ; EXIT_SUCCESS
+    mov rdi, 1 ; general error exit code
     syscall
