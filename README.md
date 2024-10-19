@@ -1,5 +1,5 @@
 # xor-file-enc-asm
-Xor encrypt a file in assembly. No malloc since libc is not used meaning you have to configure the max file size variable to read bigger files.
+Xor encrypt a file in assembly. No malloc since libc is not used meaning you have to configure the max file size variable to read bigger files. Couldnt be bothered to implement chunk reading.
 
 Compile with `make`
 
